@@ -35,8 +35,8 @@ int main(int argc, char *argv[]) {
 	//UPDATE THE STATUS
 	
 	imsi=0;
+	bingo_init();
 	while(imsi<n_bingo){
-		bingo_init();
 		bingo_print();
 		selNum=get_number();
 		bingo_inputNum(selNum);
