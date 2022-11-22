@@ -1,5 +1,7 @@
 #define n_size 5
 #define n_bingo 2
+#define BINGO_NUMSTATUS_ABSENT -1
+#define BINGO_NUMSTATUS_PRESENT 0
 
 
 
