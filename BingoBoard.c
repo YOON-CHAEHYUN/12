@@ -4,6 +4,13 @@
 static int bingoBoard[n_size][n_size];
 static int numberStatus[n_size*n_size];
 
+
+int bingo_checkNum(int selNum){
+	if(numberStatus[selNum-1]==bingo_hole)
+		return BINGO_NUMSTATUS_ABSENT;
+	return BINGO_NUMSTATUS_PRESENT;
+}
+
 void bingo_init(void){
 	int i, j, cnt=1;
 	for(i=0;i<n_size;i++)
@@ -42,6 +49,7 @@ void bingo_inputNum(int sel){
 	i=numberStatus[sel-1]/n_size;
 	j=numberStatus[sel-1]%n_size;
 	bingoBoard[i][j]=bingo_hole;
+	numberStatus[sel-1]=bingo_hole;
 }
 int bingo_countCompletedLine(void){
 	
