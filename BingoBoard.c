@@ -12,19 +12,32 @@ int bingo_checkNum(int selNum){
 }
 
 void bingo_init(void){
-	int i, j, cnt=1;
-	for(i=0;i<n_size;i++)
-		for(j=0;j<n_size;j++)
-			if(bingoBoard[i][j]==-1)
+	int i, j, k;
+	int randNum;
+	int maxNum=n_size*n_size;
+	
+	for(i=0;i<n_size*n_size;i++)
+		numberStatus[i]=-1;
+	
+	for(i=0;i<n_size;i++){
+		for(j=0;j<n_size;j++){
+			randNum=rand()%maxNum;
+			for (k=0;k<n_size*n_size;k++) 
+			{
+				if (numberStatus[k] == BINGO_NUMSTATUS_ABSENT )
 				{
-					cnt++;
+					if (randNum == 0)   
+						break;
+					else
+						randNum--;  
 				}
-			else
-				{
-					bingoBoard[i][j]=cnt;
-					numberStatus[cnt-1]=n_size*i+j;
-					cnt++;
-				}
+			}
+			
+			numberStatus[k] = i*n_size+j;
+			bingoBoard[i][j]=k+1;
+			maxNum--;
+		}
+	}
 }
 void bingo_print(void){
 	int i,j;
