@@ -14,17 +14,17 @@ int bingo_checkNum(int selNum){
 void bingo_init(void){
 	int i, j, cnt=1;
 	for(i=0;i<n_size;i++)
-		for(j=0;j<n_size;j++){
-			if(cnt==15)
-			{
-				bingoBoard[i][j]=bingo_hole;
-				numberStatus[cnt-1]=bingo_hole;
-				cnt++;
-			}
-			
-			numberStatus[cnt-1]=i*n_size+j;
-			bingoBoard[i][j]=cnt++;
-		}
+		for(j=0;j<n_size;j++)
+			if(bingoBoard[i][j]==-1)
+				{
+					cnt++;
+				}
+			else
+				{
+					bingoBoard[i][j]=cnt;
+					numberStatus[cnt-1]=n_size*i+j;
+					cnt++;
+				}
 }
 void bingo_print(void){
 	int i,j;
@@ -51,7 +51,58 @@ void bingo_inputNum(int sel){
 	bingoBoard[i][j]=bingo_hole;
 	numberStatus[sel-1]=bingo_hole;
 }
+
 int bingo_countCompletedLine(void){
+	int i, j;
+	int cnt=0;
+	int checkBingo;
 	
+	//check rowÇà
+	for(i=0;i<n_size;i++){
+		checkBingo=1;
+		for(j=0;j<n_size;j++){
+			if(bingoBoard[i][j]>0){
+				checkBingo=0;
+				break;
+			}
+		}
+		if(checkBingo==1){
+		cnt++;
+		}
+	}
+	//check column¿­
+	for(j=0;j<n_size;j++){
+		checkBingo=1;
+		for(i=0;i<n_size;i++){
+			if(bingoBoard[i][j]>0){
+				checkBingo=0;
+				break;
+			}
+		}
+		if(checkBingo==1){
+			cnt++;
+		}
+	} 
+	checkBingo=1;
+	for(i=0;i<n_size;i++){
+		if(bingoBoard[i][i]>0){
+			checkBingo=0;
+			break;
+		}
+	}
+	if(checkBingo==1){
+		cnt++;
+	}
+	checkBingo=1;
+	for(i=0;i<n_size;i++){
+		if(bingoBoard[i][n_size-1-i]>0){
+			checkBingo=0;
+			break;
+		}
+	}
+	if(checkBingo==1){
+		cnt++;
+	}
+	return cnt;
 }
 
